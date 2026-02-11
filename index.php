@@ -116,6 +116,7 @@
       <a href="index.php" style="text-decoration:none;">
         <button type="button" onclick="window.location='index.php'">Reset</button>
       </a>
+
     </form>
 
     <div class="cards">
@@ -131,6 +132,11 @@
         </div>
       <?php endforeach; ?>
     </div>
+    <form method="POST" onsubmit="return confirm('Are you sure you want to delete all records?');">
+      <button type="submit" name="delete_all" style="background:red;color:white;padding:8px 14px;border:none;border-radius:6px;">
+        Delete All Records
+      </button>
+    </form>
 
     <table>
       <thead>
