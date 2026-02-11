@@ -80,7 +80,6 @@ if ($allTotalRes) {
   $allTotal = (int)($allTotalRes->fetch_assoc()["total"] ?? 0);
 }
 
-/* ===== Delete all records ===== */
 if (isset($_POST['delete_all'])) {
   $conn->query("DELETE FROM students");
   header("Location: index.php");
