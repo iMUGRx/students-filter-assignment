@@ -1,14 +1,20 @@
 <?php
 session_start();
+require_once "db.php";
 
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-  $username = $_POST["username"] ?? "";
-  $password = $_POST["password"] ?? "";
+  $username = $_POST["username"];
+  $password = md5($_POST["password"]);
 
-  if ($username === "admin" && $password === "1234") {
+  $stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
+  $stmt->bind_param("ss", $username, $password);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows == 1) {
     $_SESSION["user"] = $username;
     header("Location: admin.php");
     exit;
@@ -18,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
+<h2>Login</h2>
 <form method="POST">
-  <h2>Login</h2>
-  <?php if ($error) echo "<p style='color:red'>$error</p>"; ?>
   <input name="username" placeholder="Username"><br><br>
-  <input name="password" type="password" placeholder="Password"><br><br>
+  <input type="password" name="password" placeholder="Password"><br><br>
   <button>Login</button>
+  <p style="color:red"><?= $error ?></p>
 </form>
