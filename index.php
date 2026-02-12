@@ -132,6 +132,22 @@
         </div>
       <?php endforeach; ?>
     </div>
+    <form method="POST">
+      <label>Change Department for ALL Students:</label>
+
+      <select name="new_department" required>
+        <option value="">Select Department</option>
+        <option value="IT">IT</option>
+        <option value="SW">SW</option>
+        <option value="mis">mis</option>
+        <option value="cs">cs</option>
+      </select>
+
+      <button type="submit" name="update_all">
+        Update All Records
+      </button>
+    </form>
+
     <form method="POST" onsubmit="return confirm('Are you sure you want to delete all records?');">
       <button type="submit" name="delete_all" style="background:red;color:white;padding:8px 14px;border:none;border-radius:6px;">
         Delete All Records

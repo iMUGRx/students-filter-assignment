@@ -80,6 +80,19 @@ if ($allTotalRes) {
   $allTotal = (int)($allTotalRes->fetch_assoc()["total"] ?? 0);
 }
 
+/* ===== Update ALL records ===== */
+if (isset($_POST['update_all'])) {
+
+  $newDepartment = $_POST['new_department'];
+
+  $stmt = $conn->prepare("UPDATE students SET department=?");
+  $stmt->bind_param("s", $newDepartment);
+  $stmt->execute();
+
+  header("Location: index.php");
+  exit;
+}
+
 if (isset($_POST['delete_all'])) {
   $conn->query("DELETE FROM students");
   header("Location: index.php");
